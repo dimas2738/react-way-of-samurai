@@ -8,9 +8,6 @@ import ava from '../../../../images.png';
 
 const Post = (props) => {
 
-
-
-
     return (
     <div className={s.item}>
       <img src={ava} />
