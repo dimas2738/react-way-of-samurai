@@ -6,7 +6,7 @@ import Post from './Post/Post';
 const MyPosts = (props) => {
 
     let likePlus=()=>  {
-        props.like();
+        props.likePlus();
     }
 
     let postsElements =
