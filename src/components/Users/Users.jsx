@@ -3,30 +3,40 @@ import s from './Users.module.css';
 import ava from "../../images.png";
 import * as axios from 'axios'
 
-const Users = (props) => {
-if (props.users.length==0){
+class Users extends React.Component {
 
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response=> {
-        props.setUsers(response.data.items)
-        debugger
-    })}
+    constructor(props) {
+        super(props);
+    }
 
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                this.props.setUsers(response.data.items)
 
-    return (
+            })
+    }
 
-            <div >
-                {props.users.map(el=>{
+    render() {
+        return (
+
+            <div>
+                {this.props.users.map(el => {
                     return <div key={el.id}>
                         <div className={s.usersWrapper}>
                             <div>
-                                <img className={s.usersImg} src={el.photos.small!=null
-                                    ?el.photos.small
-                                    :ava}/>
+                                <img className={s.usersImg} src={el.photos.small != null
+                                    ? el.photos.small
+                                    : ava}/>
 
                                 <div>
                                     {el.follow
-                                        ? <button onClick={()=>{props.onUnFollowClick(el.id)}}>unFollow</button>
-                                            :<button onClick={()=>{props.onFollowClick(el.id)}}>Follow</button>}
+                                        ? <button onClick={() => {
+                                            this.props.onUnFollowClick(el.id)
+                                        }}>unFollow</button>
+                                        : <button onClick={() => {
+                                            this.props.onFollowClick(el.id)
+                                        }}>Follow</button>}
                                 </div>
                             </div>
                             <div>
@@ -37,12 +47,15 @@ if (props.users.length==0){
 
 
                         </div>
-                        </div>
+                    </div>
                 })}
 
             </div>
 
-    )
+        )
+
+    }
+
 }
 
 export default Users;

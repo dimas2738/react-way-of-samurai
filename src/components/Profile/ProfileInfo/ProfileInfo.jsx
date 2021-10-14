@@ -7,7 +7,7 @@ const ProfileInfo = () => {
     return (
         <div>
             <div>
-                <img
+                <img className={s.mainWall}
                     src={wall}/>
             </div>
             <div className={s.descriptionBlock}>
