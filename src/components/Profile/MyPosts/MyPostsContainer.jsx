@@ -24,7 +24,7 @@ let mapStateToProps=(state)=> {
 let mapDispatchToProps=(dispatch)=>{
     return {
 
-        likePlus:()=> dispatch(likePostActionCreator()),
+        // likePlus:(id)=> dispatch(likePostActionCreator(id)),
 
         addPost:() =>  dispatch(addPostActionCreator()),
 

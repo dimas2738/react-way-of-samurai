@@ -1,16 +1,20 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import PostContainer from "./Post/PostContainer";
 
 
 const MyPosts = (props) => {
 
-    let likePlus=()=>  {
-        props.likePlus();
-    }
+
 
     let postsElements =
-        props.posts.map( p => <Post dispatch={props.dispatch} message={p.message} likesCount={p.likesCount} likePlus={likePlus}/>);
+        props.posts.map( p => <PostContainer
+            // dispatch={p.dispatch}
+            // like={p.likePlus}
+                                             message={p.message}
+                                             id={p.id}
+                                             likesCount={p.likesCount} />);
 
     let newPostElement = React.createRef();
 
