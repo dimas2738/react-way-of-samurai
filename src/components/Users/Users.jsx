@@ -1,34 +1,10 @@
 import React from 'react';
 import s from './Users.module.css';
 import ava from "../../images.png";
-import * as axios from 'axios'
 
-class Users extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage} & count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-
-            })
-    }
-
-    onPageNumberClick=(pageNumber)=>{
-        this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber} & count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-
-            })
-
-    }
-
-    render() {
-        let pagesCount=Math.ceil(this.props.totalUsersCount/this.props.pageSize)
+let Users=(props)=> {
+        let pagesCount=Math.ceil(props.totalUsersCount/props.pageSize)
         let pages=[]
         for (let i=1;i<=pagesCount;i++){
             pages.push(i)
@@ -39,11 +15,11 @@ class Users extends React.Component {
                 <div>
                     {pages.map(e=>{
                         return <span
-                        onClick={()=>this.onPageNumberClick(e)}
-                        className={this.props.currentPage===e? s.currentPage:null}>{e}</span>})}
+                        onClick={()=>props.onPageNumberClick(e)}
+                        className={props.currentPage===e? s.currentPage:null}>{e}</span>})}
 
                 </div>
-                {this.props.users.map(el => {
+                {props.users.map(el => {
                     return <div key={el.id}>
                         <div className={s.usersWrapper}>
                             <div>
@@ -54,10 +30,10 @@ class Users extends React.Component {
                                 <div>
                                     {el.follow
                                         ? <button onClick={() => {
-                                            this.props.onUnFollowClick(el.id)
+                                            props.onUnFollowClick(el.id)
                                         }}>unFollow</button>
                                         : <button onClick={() => {
-                                            this.props.onFollowClick(el.id)
+                                            props.onFollowClick(el.id)
                                         }}>Follow</button>}
                                 </div>
                             </div>
@@ -75,8 +51,6 @@ class Users extends React.Component {
             </div>
 
         )
-
-    }
 
 }
 
