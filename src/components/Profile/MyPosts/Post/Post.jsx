@@ -8,15 +8,15 @@ import ava from '../../../../images.png';
 
 const Post = (props) => {
 
-    let likePlus=(id)=>  {
-        props.likePlus(id);
-    }
+    // let likePlus=(id)=>  {
+    //     props.likePlus(id);
+    // }
 
     return (
     <div className={s.item}>
       <img src={ava} />
         { props.message }
-        <button onClick={likePlus}>like</button>
+        <button onClick={ props.likePlus}>like</button>
         <div>
             <span>like</span>
             { props.likesCount }

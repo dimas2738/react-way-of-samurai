@@ -1,15 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    followActionCreator,
-    setCurrentPageActionCreator,
-    setUsersActionCreator,
-    unFollowActionCreator,
-    setTotalUsersCountActionCreator,
-    // setFetchingActionCreator
+    onFollowClick,
+    setCurrentPage,
+    setUsers,
+    onUnFollowClick,
+    setTotalUsersCount,
+    setFetching
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import * as axios from "axios";
+import Preloader from "../common/Preloader/Preloader";
 
 
 class UsersContainer extends React.Component {
@@ -19,41 +20,45 @@ class UsersContainer extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.setFetchingActionCreator(true)
+        this.props.setFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage} & count=${this.props.pageSize}`)
             .then(response => {
+                this.props.setFetching(false)
                 this.props.setUsers(response.data.items)
                 this.props.setTotalUsersCount(response.data.totalCount)
-                // this.props.setFetchingActionCreator(false)
+
 
             })
     }
 
-    onPageNumberClick=(pageNumber)=>{
-        this.props.setFetchingActionCreator(true)
+    onPageNumberClick = (pageNumber) => {
+        this.props.setFetching(true)
         this.props.setCurrentPage(pageNumber)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber} & count=${this.props.pageSize}`)
             .then(response => {
+                this.props.setFetching(false)
                 this.props.setUsers(response.data.items)
-                // this.props.setFetchingActionCreator(false)
 
             })
 
     }
 
     render() {
-        return <Users  totalUsersCount={this.props.totalUsersCount}
-                       pageSize={this.props.pageSize}
-                       onPageNumberClick={this.onPageNumberClick}
-                       currentPage={this.props.currentPage}
-                       users={this.props.users}
-                       onUnFollowClick={this.props.onUnFollowClick}
-                       onFollowClick={this.props.onFollowClick}
-        />
-    }}
-
-
-
+        return < >
+            {this.props.isFetching ?
+                <Preloader/>
+                : null}
+            <Users totalUsersCount={this.props.totalUsersCount}
+                   pageSize={this.props.pageSize}
+                   onPageNumberClick={this.onPageNumberClick}
+                   currentPage={this.props.currentPage}
+                   users={this.props.users}
+                   onUnFollowClick={this.props.onUnFollowClick}
+                   onFollowClick={this.props.onFollowClick}
+            />
+        < />
+    }
+}
 
 
 let mapStateToProps = (state) => {
@@ -61,24 +66,21 @@ let mapStateToProps = (state) => {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage:state.usersPage.currentPage
-
+        currentPage: state.usersPage.currentPage,
+        isFetching:state.usersPage.isFetching
 
     };
-}
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        onFollowClick: (userId) => dispatch(followActionCreator(userId)),
-        onUnFollowClick: (userId) => dispatch(unFollowActionCreator(userId)),
-        setUsers: (users) => dispatch(setUsersActionCreator(users)),
-        setCurrentPage: (pageNumber) => dispatch(setCurrentPageActionCreator(pageNumber)),
-        setTotalUsersCount:(totalCount)=>dispatch(setTotalUsersCountActionCreator(totalCount))
-    };
 }
 
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, {
+    onFollowClick,
+    onUnFollowClick,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    setFetching
+})(UsersContainer)
 
 

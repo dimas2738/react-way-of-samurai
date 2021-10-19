@@ -2,6 +2,7 @@ const ADD_POST = 'ADD-POST';
 const DEL_POST = 'DEL-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const LIKE_POST = 'LIKE-POST';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 let initialState = {
     posts: [
@@ -10,7 +11,8 @@ let initialState = {
         {id: 3, message: 'Blabla', likesCount: 11},
         {id: 4, message: 'Dada', likesCount: 11}
     ],
-    newPostText: 'it-kamasutra.com'
+    newPostText: 'it-kamasutra.com',
+    userProfile: null
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -36,23 +38,19 @@ const profileReducer = (state = initialState, action) => {
         case LIKE_POST: {
             return {
                 ...state,
-                posts:state.posts.map(el => {
+                posts: state.posts.map(el => {
                     console.log(action)
-                    if (el.id ==3) {
-                        return {...el, likesCount:el.likesCount+1}
+                    if (el.id == 2) {
+                        return {...el, likesCount: el.likesCount + 1}
                     }
                     return el
-                    })
-                // posts: state.posts.map(el => {
-                //     if (el.id === action.id) {
-                //         return {...el, likesCount: 0}
-                //     }
-                //     return el
-                // })
+                })
             }
-
-
-
+        }
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                userProfile: action.userProfile}
         }
         default:
             return state;
@@ -65,5 +63,7 @@ export const delPostActionCreator = () => ({type: DEL_POST})
 export const likePostActionCreator = (postId) => ({type: LIKE_POST, postId})
 export const updateNewPostTextActionCreator = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const setUserProfileActionCreator = (userProfile) => ({type: SET_USER_PROFILE, userProfile})
+
 
 export default profileReducer;
