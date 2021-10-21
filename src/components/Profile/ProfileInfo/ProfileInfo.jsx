@@ -7,7 +7,30 @@ import Preloader from "../../common/Preloader/Preloader";
 const ProfileInfo = (props) => {
 
     if (!props.userProfile) {
-        return <Preloader/>
+        return <div>
+            <div>
+                <img className={s.mainWall}
+                     src={wall}/>
+            </div>
+            <div className={s.descriptionBlock}>
+                <img src={ava}/>
+                <div><b>Name:</b> </div>
+                <div><b>About Me:</b> </div>
+                <div><b>Contact Me:</b></div>
+                <div><b>facebook: </b></div>
+                <div><b>сайт: </b></div>
+                <div><b>vk:</b></div>
+                <div><b>twitter: </b></div>
+                <div><b>instagram: </b></div>
+                <div><b>youtube: </b></div>
+                <div><b>github: </b></div>
+                <div><b>mainLink: </b></div>
+
+
+                {/*<div>DoB:{props.date}</div>*/}
+                {/*<div>City:{props.name}</div>*/}
+            </div>
+        </div>
     }
     return (
         <div>

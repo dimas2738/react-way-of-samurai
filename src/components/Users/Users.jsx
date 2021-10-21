@@ -17,7 +17,7 @@ let Users = (props) => {
                 {pages.map(e => {
                     return <span
                         onClick={() => props.onPageNumberClick(e)}
-                        className={props.currentPage === e ? s.currentPage : null}>{e}</span>
+                        className={props.currentPage === e ? s.currentPage : null}>/{e}</span>
                 })}
 
             </div>
@@ -25,7 +25,7 @@ let Users = (props) => {
                 return <div key={el.id}>
                     <div className={s.usersWrapper}>
                         <div>
-                            <NavLink to={'/profile'+el.id}>
+                            <NavLink to={'/profile/'+el.id}>
                                 <img className={s.usersImg} src={el.photos.small != null
                                     ? el.photos.small
                                     : ava}/>
