@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    onFollowClick,
+    unfollow,
     setCurrentPage,
     setUsers,
-    onUnFollowClick,
+    follow,
     setTotalUsersCount,
     setFetching
 } from "../../redux/users-reducer";
@@ -21,7 +21,8 @@ class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.setFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage} & count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage} & count=${this.props.pageSize}`,
+            {withCredentials: true})
             .then(response => {
                 this.props.setFetching(false)
                 this.props.setUsers(response.data.items)
@@ -34,7 +35,8 @@ class UsersContainer extends React.Component {
     onPageNumberClick = (pageNumber) => {
         this.props.setFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber} & count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber} & count=${this.props.pageSize}`,
+            {withCredentials: true})
             .then(response => {
                 this.props.setFetching(false)
                 this.props.setUsers(response.data.items)
@@ -53,8 +55,8 @@ class UsersContainer extends React.Component {
                    onPageNumberClick={this.onPageNumberClick}
                    currentPage={this.props.currentPage}
                    users={this.props.users}
-                   onUnFollowClick={this.props.onUnFollowClick}
-                   onFollowClick={this.props.onFollowClick}
+                   unfollow={this.props.unfollow}
+                   follow={this.props.follow}
             />
         < />
     }
@@ -75,8 +77,8 @@ let mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-    onFollowClick,
-    onUnFollowClick,
+    unfollow,
+    follow,
     setUsers,
     setCurrentPage,
     setTotalUsersCount,

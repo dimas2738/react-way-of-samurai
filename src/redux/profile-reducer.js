@@ -39,8 +39,9 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: state.posts.map(el => {
+                    debugger
                     console.log(action)
-                    if (el.id == 2) {
+                    if (el.id == action.postId) {
                         return {...el, likesCount: el.likesCount + 1}
                     }
                     return el
