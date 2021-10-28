@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Users.module.css';
 import ava from "../../images.png";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
+import {usersAPI} from "../../api/api";
 
 
 let Users = (props) => {
@@ -34,38 +34,27 @@ let Users = (props) => {
 
 
                             <div>
-                                {el.follow
-                                    ? <button onClick={() => {
-                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
-                                            {},
-                                            {
-                                                withCredentials: true,
-                                                headers: {
-                                                    'API-KEY': 'ad46e6f1-8546-42c9-a3b2-93d7577d6419'
-                                                }
-                                            })
-
-                                            .then(response => {
+                                {el.followed
+                                    ? <button disabled={props.disableButton.some(id=>id===el.id)} onClick={() => {
+                                        props.setDisableButton(true,el.id)
+                                        usersAPI.unFollowUsersAPI(el.id)
+                                       .then(response => {
                                                 if (response.data.resultCode == 0) {
-                                                    props.follow(el.id)
+                                                    props.unfollow(el.id)
                                                 }
-
+                                           props.setDisableButton(false,el.id)
                                             })
 
 
                                     }}>unFollow</button>
-                                    : <button onClick={() => {
-                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
-                                            {
-                                                withCredentials: true,
-                                                headers: {
-                                                    'API-KEY': 'ad46e6f1-8546-42c9-a3b2-93d7577d6419'
-                                                }
-                                            })
+                                    : <button disabled={props.disableButton.some(id=>id===el.id)} onClick={() => {
+                                        props.setDisableButton(true,el.id)
+                                        usersAPI.followUsersAPI(el.id)
                                             .then(response => {
                                                 if (response.data.resultCode == 0) {
-                                                    props.unfollow(el.id)
+                                                    props.follow(el.id)
                                                 }
+                                                props.setDisableButton(false,el.id)
 
                                             })
 

@@ -1,11 +1,10 @@
-import ava from '../images.png';
-
 const UNFOLLOW = 'UNFOLLOW';
 const FOLLOW = 'FOLLOW'
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const SET_FETCHING='SET_FETCHING'
+const SET_DESABLE_BUTTON='SET_DESABLE_BUTTON'
 
 let initialState = {
     users: [
@@ -16,8 +15,9 @@ let initialState = {
     ],
     pageSize:5,
     totalUsersCount:100,
-    currentPage:2,
+    currentPage:1,
     isFetching:true,
+    disableButton:[]
 
 };
 
@@ -27,8 +27,8 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW: {
             return{...state,
             users:state.users.map((el)=>{
-                if (el.id===action.userId){
-                    return {...el,follow:true}
+                if (el.id==action.userId){
+                    return {...el,followed:true}
                 }
                 return el
             })}
@@ -36,8 +36,8 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW: {
             return{...state,
                 users:state.users.map((el)=>{
-                    if (el.id===action.userId){
-                        return {...el,follow:false}
+                    if (el.id==action.userId){
+                        return {...el,followed:false}
                     }
                     return el
                 })}
@@ -58,6 +58,14 @@ const usersReducer = (state = initialState, action) => {
             return{...state,
                 isFetching:action.isFetching}
         }
+        case SET_DESABLE_BUTTON: {
+            return{...state,
+                disableButton:action.disableButton
+                    ? [...state.disableButton,action.userId]
+                    :[]
+
+            }
+        }
         default:
             return state;
     }
@@ -65,11 +73,12 @@ const usersReducer = (state = initialState, action) => {
 
 
 export const follow = (userId) => ({type: FOLLOW, userId})
-export const  unfollow = (userId) => ({type: UNFOLLOW,userId})
+export const unfollow = (userId) => ({type: UNFOLLOW,userId})
 export const setUsers= (users) => ({type: SET_USERS,users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE,currentPage})
 export const setTotalUsersCount=(totalCount) => ({type: SET_TOTAL_COUNT,totalCount})
 export const setFetching=(isFetching) => ({type: SET_FETCHING,isFetching})
+export const setDisableButton=(disableButton,userId) => ({type: SET_DESABLE_BUTTON,disableButton,userId})
 
 
 export default usersReducer;
