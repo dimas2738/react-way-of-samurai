@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const ADD_POST = 'ADD-POST';
 const DEL_POST = 'DEL-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -64,7 +66,14 @@ export const delPostActionCreator = () => ({type: DEL_POST})
 export const likePostActionCreator = (postId) => ({type: LIKE_POST, postId})
 export const updateNewPostTextActionCreator = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
-export const setUserProfileActionCreator = (userProfile) => ({type: SET_USER_PROFILE, userProfile})
+export const setUserProfile = (userProfile) => ({type: SET_USER_PROFILE, userProfile})
 
+export const setUserProfileThunkCreator=(userId)=>{
+    return (dispatch)=>{
+        usersAPI.setUserProfileAPI(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }}
 
 export default profileReducer;

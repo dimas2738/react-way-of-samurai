@@ -95,4 +95,34 @@ export const getUsersThunkCreator=(currentPage,pageSize)=>{
             })
     }
 }
+
+export const followUsersThunkCreator=(id)=>{
+    return (dispatch)=>{
+        dispatch(setDisableButton(true,id))
+        usersAPI.unFollowUsersAPI(id)
+            .then(response => {
+                if (response.data.resultCode == 0) {
+                    dispatch(unfollow(id))
+                }
+               dispatch(setDisableButton(false,id))
+            })
+    }
+}
+
+export const unFollowUsersThunkCreator=(id)=>{
+    return (dispatch)=>{
+        dispatch(setDisableButton(true,id))
+        usersAPI.followUsersAPI(id)
+            .then(response => {
+                if (response.data.resultCode == 0) {
+                    dispatch(follow(id))
+                }
+                dispatch(setDisableButton(false,id))
+            })
+    }
+}
+
+
+
+
 export default usersReducer;

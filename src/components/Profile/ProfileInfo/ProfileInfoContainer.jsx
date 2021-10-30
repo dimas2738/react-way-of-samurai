@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    setUserProfileActionCreator
+    setUserProfile,
+    setUserProfileThunkCreator
 } from "./../../../redux/profile-reducer";
 import ProfileInfo from "./ProfileInfo";
 import {withRouter} from "react-router-dom";
-import { usersAPI} from "../../../api/api";
+
 
 
 class ProfileInfoContainer extends React.Component {
@@ -15,10 +16,9 @@ class ProfileInfoContainer extends React.Component {
     }
 
     componentDidMount() {
-        usersAPI.setUserProfileAPI(this.props.match.params.userId)
-            .then(response => {
-            this.props.setUserProfile(response.data)
-    })}
+        this.props.setUserProfileThunkCreator(this.props.match.params.userId)
+
+    }
 
 
 
@@ -32,13 +32,12 @@ let mapStateToProps = (state) => ({
    userProfile: state.profilePage.userProfile
 });
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setUserProfile: (user) => dispatch(setUserProfileActionCreator(user)),
-    };
-}
+
 
 let withURLProfileInfoContainer=withRouter(ProfileInfoContainer)
-export default connect(mapStateToProps, mapDispatchToProps)(withURLProfileInfoContainer)
+export default connect(mapStateToProps, {
+    setUserProfile,
+    setUserProfileThunkCreator,
+})(withURLProfileInfoContainer)
 
 

@@ -2,9 +2,8 @@
 import {
     addPostActionCreator,
     delPostActionCreator,
-    likePostActionCreator,
     updateNewPostTextActionCreator,
-    setUserProfileActionCreator
+    setUserProfile
 
 
 } from "../../../redux/profile-reducer";
@@ -25,7 +24,7 @@ let mapStateToProps=(state)=> {
 let mapDispatchToProps=(dispatch)=>{
     return {
 
-        // likePlus:(id)=> dispatch(likePostActionCreator(id)),
+
 
         addPost:() =>  dispatch(addPostActionCreator()),
 
@@ -35,7 +34,7 @@ let mapDispatchToProps=(dispatch)=>{
             let action = updateNewPostTextActionCreator(text);
             dispatch(action);
         },
-        setUserProfile: (user) => dispatch(setUserProfileActionCreator(user)),
+        setUserProfile: (user) => dispatch(setUserProfile(user)),
 
     }}
 

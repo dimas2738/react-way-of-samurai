@@ -2,7 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css';
 import ava from '../../../index.png';
 import wall from '../../../wall.jpeg';
-import Preloader from "../../common/Preloader/Preloader";
+
 
 const ProfileInfo = (props) => {
 

@@ -7,11 +7,13 @@ import {
     follow,
     setTotalUsersCount,
     setFetching,
-    setDisableButton, getUsersThunkCreator
+    setDisableButton,
+    getUsersThunkCreator,
+    followUsersThunkCreator,
+    unFollowUsersThunkCreator
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 
 class UsersContainer extends React.Component {
@@ -21,7 +23,7 @@ class UsersContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage,this.props.pageSize)
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
 
     }
 
@@ -43,6 +45,8 @@ class UsersContainer extends React.Component {
                    follow={this.props.follow}
                    disableButton={this.props.disableButton}
                    setDisableButton={this.props.setDisableButton}
+                   followUsersThunkCreator={this.props.followUsersThunkCreator}
+                   unFollowUsersThunkCreator={this.props.unFollowUsersThunkCreator}
             />
         < />
     }
@@ -55,8 +59,8 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching:state.usersPage.isFetching,
-        disableButton:state.usersPage.disableButton
+        isFetching: state.usersPage.isFetching,
+        disableButton: state.usersPage.disableButton
 
     };
 
@@ -71,7 +75,9 @@ export default connect(mapStateToProps, {
     setTotalUsersCount,
     setFetching,
     setDisableButton,
-    getUsersThunkCreator
+    getUsersThunkCreator,
+    followUsersThunkCreator,
+    unFollowUsersThunkCreator
 })(UsersContainer)
 
 

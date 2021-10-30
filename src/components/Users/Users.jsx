@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Users.module.css';
 import ava from "../../images.png";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 
 let Users = (props) => {
@@ -36,27 +35,12 @@ let Users = (props) => {
                             <div>
                                 {el.followed
                                     ? <button disabled={props.disableButton.some(id=>id===el.id)} onClick={() => {
-                                        props.setDisableButton(true,el.id)
-                                        usersAPI.unFollowUsersAPI(el.id)
-                                       .then(response => {
-                                                if (response.data.resultCode == 0) {
-                                                    props.unfollow(el.id)
-                                                }
-                                           props.setDisableButton(false,el.id)
-                                            })
+                                        props.followUsersThunkCreator(el.id)
 
 
                                     }}>unFollow</button>
                                     : <button disabled={props.disableButton.some(id=>id===el.id)} onClick={() => {
-                                        props.setDisableButton(true,el.id)
-                                        usersAPI.followUsersAPI(el.id)
-                                            .then(response => {
-                                                if (response.data.resultCode == 0) {
-                                                    props.follow(el.id)
-                                                }
-                                                props.setDisableButton(false,el.id)
-
-                                            })
+                                        props.unFollowUsersThunkCreator(el.id)
 
 
                                     }}>Follow</button>}
