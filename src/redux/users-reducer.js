@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const UNFOLLOW = 'UNFOLLOW';
 const FOLLOW = 'FOLLOW'
 const SET_USERS = 'SET_USERS';
@@ -80,5 +82,17 @@ export const setTotalUsersCount=(totalCount) => ({type: SET_TOTAL_COUNT,totalCou
 export const setFetching=(isFetching) => ({type: SET_FETCHING,isFetching})
 export const setDisableButton=(disableButton,userId) => ({type: SET_DESABLE_BUTTON,disableButton,userId})
 
+export const getUsersThunkCreator=(currentPage,pageSize)=>{
+    return (dispatch)=>{
+        dispatch(setFetching(true))
+        usersAPI.getUsersAPI(currentPage,pageSize)
+            .then(response => {
+                dispatch(setFetching(false))
+                dispatch(setUsers(response.data.items))
+                dispatch(setTotalUsersCount(response.data.totalCount))
 
+
+            })
+    }
+}
 export default usersReducer;

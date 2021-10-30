@@ -7,7 +7,7 @@ import {
     follow,
     setTotalUsersCount,
     setFetching,
-    setDisableButton
+    setDisableButton, getUsersThunkCreator
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
@@ -21,27 +21,12 @@ class UsersContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.props.setFetching(true)
-        usersAPI.getUsersAPI(this.props.currentPage,this.props.pageSize)
-       .then(response => {
-                this.props.setFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+        this.props.getUsersThunkCreator(this.props.currentPage,this.props.pageSize)
 
-
-            })
     }
 
     onPageNumberClick = (pageNumber) => {
-        this.props.setFetching(true)
-        this.props.setCurrentPage(pageNumber)
-        usersAPI.getUsersAPI(pageNumber,this.props.pageSize)
-            .then(response => {
-                this.props.setFetching(false)
-                this.props.setUsers(response.data.items)
-
-            })
-
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -85,7 +70,8 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     setFetching,
-    setDisableButton
+    setDisableButton,
+    getUsersThunkCreator
 })(UsersContainer)
 
 
