@@ -47,6 +47,7 @@ class UsersContainer extends React.Component {
                    setDisableButton={this.props.setDisableButton}
                    followUsersThunkCreator={this.props.followUsersThunkCreator}
                    unFollowUsersThunkCreator={this.props.unFollowUsersThunkCreator}
+                   isLogin={this.props.isLogin}
             />
         < />
     }
@@ -60,7 +61,8 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        disableButton: state.usersPage.disableButton
+        disableButton: state.usersPage.disableButton,
+        isLogin:state.auth.isLogin
 
     };
 

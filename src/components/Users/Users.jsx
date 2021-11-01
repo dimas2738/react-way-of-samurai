@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Users.module.css';
 import ava from "../../images.png";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 
 let Users = (props) => {
@@ -10,6 +10,8 @@ let Users = (props) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
+    if (!props.isLogin) return <Redirect to={'/login'}/>
     return (
 
         <div>
