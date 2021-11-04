@@ -14,6 +14,9 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {Redirect} from "react-router-dom";
+import Dialogs from "../Dialogs/Dialogs";
+import {WithAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
 
 
 class UsersContainer extends React.Component {
@@ -62,11 +65,14 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         disableButton: state.usersPage.disableButton,
-        isLogin:state.auth.isLogin
+
 
     };
 
 }
+
+let AuthRedirectComponent =WithAuthRedirectComponent(UsersContainer)
+
 
 
 export default connect(mapStateToProps, {
@@ -79,7 +85,9 @@ export default connect(mapStateToProps, {
     setDisableButton,
     getUsersThunkCreator,
     followUsersThunkCreator,
-    unFollowUsersThunkCreator
-})(UsersContainer)
+    unFollowUsersThunkCreator,
+
+
+})(AuthRedirectComponent)
 
 
