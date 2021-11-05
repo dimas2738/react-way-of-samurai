@@ -17,6 +17,7 @@ import Preloader from "../common/Preloader/Preloader";
 import {Redirect} from "react-router-dom";
 import Dialogs from "../Dialogs/Dialogs";
 import {WithAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
+import {compose} from "redux";
 
 
 class UsersContainer extends React.Component {
@@ -70,24 +71,41 @@ let mapStateToProps = (state) => {
     };
 
 }
+//
+// let AuthRedirectComponent =WithAuthRedirectComponent(UsersContainer)
+//
+//
+//
+// export default connect(mapStateToProps, {
+//     unfollow,
+//     follow,
+//     setUsers,
+//     setCurrentPage,
+//     setTotalUsersCount,
+//     setFetching,
+//     setDisableButton,
+//     getUsersThunkCreator,
+//     followUsersThunkCreator,
+//     unFollowUsersThunkCreator,
+//
+//
+// })(AuthRedirectComponent)
 
-let AuthRedirectComponent =WithAuthRedirectComponent(UsersContainer)
+export default compose(
+    connect(mapStateToProps, {
+        unfollow,
+        follow,
+        setUsers,
+        setCurrentPage,
+        setTotalUsersCount,
+        setFetching,
+        setDisableButton,
+        getUsersThunkCreator,
+        followUsersThunkCreator,
+        unFollowUsersThunkCreator,
 
 
+    }),
 
-export default connect(mapStateToProps, {
-    unfollow,
-    follow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    setFetching,
-    setDisableButton,
-    getUsersThunkCreator,
-    followUsersThunkCreator,
-    unFollowUsersThunkCreator,
-
-
-})(AuthRedirectComponent)
-
-
+    WithAuthRedirectComponent
+)(UsersContainer)

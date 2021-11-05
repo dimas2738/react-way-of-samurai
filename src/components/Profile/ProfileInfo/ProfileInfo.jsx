@@ -2,6 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css';
 import ava from '../../../index.png';
 import wall from '../../../wall.jpeg';
+import ProfileStatus from './ProfileStatus.jsx';
 
 
 const ProfileInfo = (props) => {
@@ -14,17 +15,18 @@ const ProfileInfo = (props) => {
             </div>
             <div className={s.descriptionBlock}>
                 <img src={ava}/>
-                <div><b>Name:</b> </div>
-                <div><b>About Me:</b> </div>
-                <div><b>Contact Me:</b></div>
-                <div><b>facebook: </b></div>
-                <div><b>сайт: </b></div>
-                <div><b>vk:</b></div>
-                <div><b>twitter: </b></div>
-                <div><b>instagram: </b></div>
-                <div><b>youtube: </b></div>
-                <div><b>github: </b></div>
-                <div><b>mainLink: </b></div>
+                <div><b>Name:</b>-</div>
+                <div><b>About Me:</b>-</div>
+                <div><b>Contact Me:</b>-</div>
+                <ProfileStatus/>
+                {/*<div><b>facebook: </b>-</div>*/}
+                {/*<div><b>сайт: </b>-</div>*/}
+                {/*<div><b>vk:</b>-</div>*/}
+                {/*<div><b>twitter: </b>-</div>*/}
+                {/*<div><b>instagram: </b>-</div>*/}
+                {/*<div><b>youtube: </b>-</div>*/}
+                {/*<div><b>github: </b>-</div>*/}
+                {/*<div><b>mainLink: </b>-</div>*/}
 
 
                 {/*<div>DoB:{props.date}</div>*/}
