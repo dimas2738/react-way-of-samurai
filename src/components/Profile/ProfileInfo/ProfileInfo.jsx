@@ -18,7 +18,7 @@ const ProfileInfo = (props) => {
                 <div><b>Name:</b>-</div>
                 <div><b>About Me:</b>-</div>
                 <div><b>Contact Me:</b>-</div>
-                <ProfileStatus/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 {/*<div><b>facebook: </b>-</div>*/}
                 {/*<div><b>сайт: </b>-</div>*/}
                 {/*<div><b>vk:</b>-</div>*/}

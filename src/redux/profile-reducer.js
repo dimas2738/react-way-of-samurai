@@ -5,6 +5,7 @@ const DEL_POST = 'DEL-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const LIKE_POST = 'LIKE-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 let initialState = {
     posts: [
@@ -14,7 +15,8 @@ let initialState = {
         {id: 4, message: 'Dada', likesCount: 11}
     ],
     newPostText: 'it-kamasutra.com',
-    userProfile: null
+    userProfile: null,
+    status:'___'
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -55,6 +57,12 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 userProfile: action.userProfile}
         }
+
+        case SET_STATUS: {
+            return {
+                ...state,
+                status: action.status}
+        }
         default:
             return state;
     }
@@ -67,6 +75,7 @@ export const likePostActionCreator = (postId) => ({type: LIKE_POST, postId})
 export const updateNewPostTextActionCreator = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
 export const setUserProfile = (userProfile) => ({type: SET_USER_PROFILE, userProfile})
+export const setStatus = (status) => ({type: SET_STATUS, status})
 
 export const setUserProfileThunkCreator=(userId)=>{
     return (dispatch)=>{
@@ -75,5 +84,20 @@ export const setUserProfileThunkCreator=(userId)=>{
                 dispatch(setUserProfile(response.data))
             })
     }}
+export const getStatusThunkCreator=(userId)=>{
+    return (dispatch)=>{
+        usersAPI.getStatus(userId)
+            .then(response => {
+                dispatch(setStatus(response.data))
+            })
+    }}
+export const updateStatusThunkCreator=(status)=>{
+    return (dispatch)=>{
+        usersAPI.updateStatus(status)
+            .then(response => {
+                if (response.data.resultCode===0){
+                    dispatch(setStatus(status))}
 
+            })
+    }}
 export default profileReducer;
