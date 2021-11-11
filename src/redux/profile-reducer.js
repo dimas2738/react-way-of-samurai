@@ -15,7 +15,7 @@ let initialState = {
         {id: 4, message: 'Dada', likesCount: 11}
     ],
     newPostText: 'it-kamasutra.com',
-    userProfile: null,
+    userProfile: 20370,
     status:'___'
 };
 
@@ -88,6 +88,7 @@ export const getStatusThunkCreator=(userId)=>{
     return (dispatch)=>{
         usersAPI.getStatus(userId)
             .then(response => {
+                debugger
                 dispatch(setStatus(response.data))
             })
     }}

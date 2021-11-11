@@ -2,8 +2,11 @@ import React from 'react';
 
 
 export default class ProfileStatus extends React.Component {
+
+    statusInputRef=React.createRef()
+
     state = {
-        // status: 'Hey',
+        status: this.props.status,
         editMode: false
     }
 
@@ -19,6 +22,19 @@ export default class ProfileStatus extends React.Component {
             editMode: false
         })
 
+        this.props.updateStatus(this.state.status)
+    }
+
+    onStatusChange=(e)=>{
+
+        this.setState({
+            status:  e.currentTarget.value
+        })
+
+        this.props.updateStatus(this.state.status)
+
+
+
     }
 
     render() {
@@ -29,7 +45,7 @@ export default class ProfileStatus extends React.Component {
                     </div>)
                 :
                 (<div>
-                    <input  autoFocus={true} onBlur={this.offEditMode} value={this.state.status}/>
+                    <input  onChange={this.onStatusChange} autoFocus={true} onBlur={this.offEditMode} value={this.state.status}/>
                 </div>)
             }
                 < />
