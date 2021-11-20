@@ -2,13 +2,11 @@
 import {
     addPostActionCreator,
     delPostActionCreator,
-    updateNewPostTextActionCreator,
     setUserProfile
 
 
 } from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
-
 import {connect} from "react-redux";
 
 
@@ -26,14 +24,10 @@ let mapDispatchToProps=(dispatch)=>{
 
 
 
-        addPost:() =>  dispatch(addPostActionCreator()),
+        addPost:(newPost) =>  dispatch(addPostActionCreator(newPost)),
 
         delPost : () => dispatch(delPostActionCreator()),
 
-        onPostChange : (text) => {
-            let action = updateNewPostTextActionCreator(text);
-            dispatch(action);
-        },
         setUserProfile: (user) => dispatch(setUserProfile(user)),
 
     }}
