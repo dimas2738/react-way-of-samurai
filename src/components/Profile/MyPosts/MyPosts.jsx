@@ -2,6 +2,10 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import PostContainer from "./Post/PostContainer";
 import {Field, reduxForm} from "redux-form";
+import {TextArea} from "../../common/FormsControls/FormControls";
+import {maxLength, requiredField} from "../../../utils/validators/validator";
+
+const maxLength20=maxLength(20)
 
 
 const MyPosts = (props) => {
@@ -14,22 +18,29 @@ const MyPosts = (props) => {
 
 
     let addPost = (value) => {
+        // alert(value.newPost)
         props.addPost(value.newPost);
 
     }
+    // const onSubmit = (formData) => {
+    //     console.log(formData)
+    //
+    // }
 
-    let delPost = () => {
-        props.delPost();
-
-    }
+    // let delPost = () => {
+    //     props.delPost();
+    //
+    // }
 
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
-                <MyPostsReduxForm onSubmit={addPost}
-                                  delPost={delPost}
+                <MyPostsReduxForm
+                    onSubmit={addPost}
+                    // onSubmit={onSubmit}
+                    // delPost={delPost}
 
                 />
 
@@ -45,14 +56,16 @@ const MyPosts = (props) => {
 const MyPostsForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field name={'newPost'} placeholder='new Post' component={'textarea'}/>
+            <Field name={'newPost'} placeholder='new Post'
+                component={TextArea}
+                validate={[requiredField, maxLength20]}/>
             <div className={s.postsButtons}>
                 <div>
-                    <button>Add post</button>
+                    <button  >Add post</button>
                 </div>
-                <div>
-                    <button onClick={props.delPost}>Del post</button>
-                </div>
+                {/*<div>*/}
+                {/*    <button onClick={props.delPost}>Del post</button>*/}
+                {/*</div>*/}
             </div>
 
         </form>
